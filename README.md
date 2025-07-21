@@ -208,7 +208,14 @@ The color scheme uses custom hex colors. Look for the Status Bar Configuration s
 
 ## Resources
 
+### Documentation
 - [Tmux Documentation](https://github.com/tmux/tmux/wiki)
 - [TPM Documentation](https://github.com/tmux-plugins/tpm)
 - [Tmux Cheat Sheet](https://tmuxcheatsheet.com/)
-- [Vim-Tmux Navigator](https://github.com/christoomey/vim-tmux-navigator)
+
+### Plugins
+- [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible)
+- [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
+- [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
+- [tmux-spotify](https://github.com/xamut/tmux-spotify)
+- [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
