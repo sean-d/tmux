@@ -44,6 +44,7 @@ Prefix key: `Ctrl+Space`
 ### Essential Commands
 | Key | Description |
 |-----|-------------|
+| `Ctrl+Space Space` | Open which-key help menu |
 | `Ctrl+Space r` | Reload tmux configuration |
 | `Ctrl+Space I` | Install plugins |
 | `Ctrl+Space U` | Update plugins |
@@ -153,8 +154,16 @@ The color scheme uses custom hex colors. Look for the Status Bar Configuration s
 ### Enhancement Plugins
 - **tmux-spotify** - Spotify controls and now-playing notifications
 - **vim-tmux-navigator** - Seamless navigation between vim and tmux
+- **tmux-which-key** - Popup key binding helper menu (like which-key in vim)
 
 ## Tips & Tricks
+
+### Using Which-Key
+The which-key plugin provides a popup menu showing all available keybindings:
+- Press `Ctrl+Space Space` to open the menu
+- Navigate with letter keys shown in the menu
+- Press `Esc` to close without selecting
+- Submenus are marked with `+` (e.g., `+Windows`, `+Panes`)
 
 ### Quick Window Switching
 - Use `Alt+Left/Right` for fast window switching without prefix
