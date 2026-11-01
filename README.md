@@ -8,15 +8,20 @@ A clean, productivity-focused tmux setup with vim integration and smart navigati
 - 🎨 **Theme**: Clean custom theme with pink accents matching Neovim Catppuccin
 - ⌨️ **Intuitive Keybindings**: Logical key mappings for splits and navigation
 - 🔄 **Session Persistence**: Auto-save and restore sessions with resurrect/continuum
-- 🎵 **Spotify Integration**: Control music without leaving your terminal
 - 🖱️ **Mouse Support**: Full mouse support for selecting, scrolling, and resizing
+- 💻 **Portable**: Same config on Linux and macOS. No OS-specific plugins or tools.
+
+## Requirements
+
+- tmux 3.2 or newer
+- git
 
 ## Installation
 
-1. Backup your existing tmux configuration:
+1. Back up any existing tmux configuration:
    ```bash
-   mv ~/.tmux.conf ~/.tmux.conf.bak
-   mv ~/.tmux ~/.tmux.bak
+   mv ~/.tmux.conf ~/.tmux.conf.bak 2>/dev/null
+   mv ~/.config/tmux ~/.config/tmux.bak 2>/dev/null
    ```
 
 2. Clone this configuration:
@@ -24,18 +29,14 @@ A clean, productivity-focused tmux setup with vim integration and smart navigati
    git clone git@github.com:sean-d/tmux.git ~/.config/tmux
    ```
 
-3. Install TPM (Tmux Plugin Manager):
-   ```bash
-   git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-   ```
-
-4. Start tmux and install plugins:
+3. Start tmux:
    ```bash
    tmux
-   # Press Ctrl+Space I (capital i) to install plugins
    ```
-   
-   All plugins will be automatically downloaded and installed. You'll see the installation progress in tmux.
+
+   On first start the config clones TPM and installs every plugin into `~/.config/tmux/plugins`
+   (git-ignored), so there's nothing else to install. Later, `Ctrl+Space I` installs newly added
+   plugins and `Ctrl+Space U` updates them.
 
 ## Key Mappings
 
@@ -81,13 +82,6 @@ Prefix key: `Ctrl+Space`
 | `q` | Exit copy mode |
 | Mouse scroll | Scroll in pane (automatic copy mode) |
 
-### Spotify Integration
-| Key | Description |
-|-----|-------------|
-| `Ctrl+Space s` | Show Spotify menu with album art and controls |
-
-**Note**: A popup notification appears in the bottom right when tracks change
-
 ## Features in Detail
 
 ### Vim Integration
@@ -117,15 +111,19 @@ Full mouse support is enabled:
 
 ```
 ~/.config/tmux/
-└── tmux.conf          # Main configuration file
-
-~/.tmux/
-└── plugins/           # TPM managed plugins (git ignored)
+├── tmux.conf          # Main configuration file
+└── plugins/           # TPM and plugins, installed automatically (git ignored)
     ├── tpm/
     ├── tmux-sensible/
     ├── tmux-resurrect/
     └── ...
 ```
+
+### Terminal support
+- `terminal-features ",*:RGB"` turns on true color for any outer terminal (Ghostty, Alacritty,
+  kitty, iTerm2...), whatever its `$TERM` is.
+- `extended-keys on` lets apps inside tmux tell `Shift+Enter`, `Ctrl+Enter` and similar keys
+  apart from plain `Enter` (Claude Code uses `Shift+Enter` for a newline).
 
 ## Customization
 
@@ -152,7 +150,6 @@ The color scheme uses custom hex colors. Look for the Status Bar Configuration s
 - **tmux-continuum** - Continuous saving of tmux environment
 
 ### Enhancement Plugins
-- **tmux-spotify** - Spotify controls and now-playing notifications
 - **vim-tmux-navigator** - Seamless navigation between vim and tmux
 - **tmux-which-key** - Popup key binding helper menu (like which-key in vim)
 
@@ -189,14 +186,19 @@ The which-key plugin provides a popup menu showing all available keybindings:
 ## Troubleshooting
 
 ### Plugins not loading
-1. Ensure TPM is installed in `~/.tmux/plugins/tpm`
+1. Check that TPM is in `~/.config/tmux/plugins/tpm` (delete that folder and restart tmux to
+   reinstall everything)
 2. Run `Ctrl+Space I` to install plugins
 3. Restart tmux: `tmux kill-server && tmux`
 
 ### Colors look wrong
-1. Ensure your terminal supports 256 colors
-2. Check `$TERM` environment variable: `echo $TERM`
-3. Should be `xterm-256color` or similar
+1. Make sure your terminal supports true color (Ghostty, Alacritty, kitty and iTerm2 all do)
+2. Inside tmux, `echo $TERM` should print `tmux-256color`
+3. Restart the tmux server after changing the config: `tmux kill-server && tmux`
+
+### Shift+Enter acts like Enter inside tmux
+1. Check `tmux show -g extended-keys` prints `on`
+2. Restart the tmux server so the setting applies: `tmux kill-server && tmux`
 
 ### Prefix key not working
 1. Ensure no other application is capturing `Ctrl+Space`
@@ -205,15 +207,6 @@ The which-key plugin provides a popup menu showing all available keybindings:
 ### Vim navigation not working
 1. Install vim-tmux-navigator in your vim/neovim config
 2. Ensure the `is_vim` detection in tmux.conf matches your vim executable
-
-### Spotify plugin not working
-1. Ensure Spotify app is installed and running
-2. On macOS, grant Terminal/iTerm permission to control Spotify in System Preferences
-3. If popup notifications stop working, remove and reinstall the plugin:
-   ```bash
-   rm -rf ~/.tmux/plugins/tmux-spotify
-   # Then press Ctrl+Space I to reinstall
-   ```
 
 ## Resources
 
@@ -226,5 +219,5 @@ The which-key plugin provides a popup menu showing all available keybindings:
 - [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible)
 - [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect)
 - [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum)
-- [tmux-spotify](https://github.com/xamut/tmux-spotify)
 - [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator)
+- [tmux-which-key](https://github.com/alexwforsythe/tmux-which-key)
